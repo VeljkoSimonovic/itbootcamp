@@ -1,0 +1,23 @@
+Zadatak 1:SELECT Naziv, Datum, Tip
+          from Program
+          WHERE idV=""
+          //nisam siguran da li je greska, ali idV is Null ne daje rezultat
+
+Zadatak 2:SELECT Naziv
+          from Program
+          WHERE Gledanost<20 and Tip="Kviz"
+
+Zadatak 3:SELECT Naziv
+          from Program, Voditelj
+          WHERE Program.idV=Voditelj.idV and Voditelj.Ime="Dejan" and Voditelj.Prezime="Pantelic"
+
+Zadatak 4:SELECT Naziv
+          from Program
+          WHERE Od>1530 and Tip="Film"
+
+Zadatak 5:SELECT avg(Gledanost)
+          from Program
+          WHERE Od>1600 
+
+
+

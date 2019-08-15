@@ -1,0 +1,23 @@
+Zadatak 1:SELECT Cena	
+          FROM Karta
+          where cena>450 and Status="N"
+
+Zadatak 2:SELECT IdLet, MestoOd as "Mesto poletanja", MestoDo as "Mesto sletanja"
+          FROM Let
+          where Poletanje is not NULL
+
+Zadatak 3:SELECT sum(PotrGoriva) as Ukupno , avg(PotrGoriva) as Prosecno
+          FROM Let
+          where MestoOd="Istanbul" and Status="Z" 
+          ORDER by Ukupno DESC, Prosecno DESC
+
+Zadatak 4:SELECT Let.IdLet, MestoOd, MestoDo, sum(Cena) as Zaradjeno
+          FROM Let, Karta
+          WHERE Let.Status!="O" and Let.IdLet=Karta.IdLet and Karta.Status!="N"
+          GROUP by let.IdLet
+
+Zadatak 5:SELECT MestoDo , min(cena) as MinCena, max(cena) as MaxCena
+          FROM Let, Karta
+          WHERE Let.IdLet=Karta.IdLet and Let.Status!="O" and Karta.Status!="N" and Poletanje>20190101 and Poletanje<20190401
+          GROUP by MestoDo
+          HAVING sum(cena)>=300 and count(karta.idLet)>=2

@@ -1,0 +1,48 @@
+DROP TABLE IF EXISTS Skijaliste;
+CREATE TABLE Skijaliste (IdSki INTEGER PRIMARY KEY,
+Naziv VARCHAR(45) NOT NULL,
+BrStaza INTEGER,
+Osnezenje CHAR(1)) ;
+INSERT INTO Skijaliste(IdSki,Naziv,BrStaza,Osnezenje)
+VALUES (1, 'Kopaonik', 25, 'D'),
+(2, 'Zlatibor', 4, 'N'),
+(3, 'Les 2 Alpes', 96, 'D'),
+(4, 'Paradiski', 253, 'D'),
+(5, 'Chatel', 49, NULL),
+(6,'Bansko', 18, 'D');
+DROP TABLE IF EXISTS Termin;
+CREATE TABLE Termin (IdTer INTEGER PRIMARY KEY,
+Od INTEGER NOT NULL,
+Do INTEGER NOT NULL,
+IdSki INTEGER,
+Cena INTEGER) ;
+INSERT INTO Termin(IdTer,Od,Do,IdSki,Cena)
+VALUES (1, 20181229, 20190105, 1, 350),
+(2, 20190105, 20190112, 1, 230),
+(3, 20190126, 20190202, 6, 165),
+(4, 20190125, 20190203, 3, 396),
+(5, 20190201, 20190210, 3, 410),
+(6, 20190308, 20190317, 3, 379);
+
+DELETE
+FROM Termin
+WHERE Cena>400;
+
+UPDATE Skijaliste
+SET Osnezenje='D'
+WHERE IdSki=2;
+
+INSERT INTO Termin(IdTer, Od, Do, IdSki, Cena)
+VALUES ((SELECT max(idTer) from Termin)+1, 20190213, 20190217, (SELECT IdSki FROM Skijaliste  Where Naziv="Kopaonik"), 170);
+
+select avg(BrStaza) as Prosek FROM Skijaliste WHERE BrStaza>10 and Osnezenje='D';
+
+SELECT Naziv, BrStaza, Od , Do, Cena
+From termin, Skijaliste
+where Skijaliste.IdSki=Termin.IdSki and BrStaza>15
+order by od ASC, BrStaza desc; 
+
+SELECT Od as Datum
+From Termin
+group by Od
+having count(Od)>=2;
